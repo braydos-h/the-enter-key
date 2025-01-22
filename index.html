@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Massive Enter Key Party</title>
+  <style>
+    /* Basic reset and styling */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #e66465, #9198e5);
+      font-family: sans-serif;
+      color: #fff;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 3rem;
+    }
+
+    p {
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+    }
+
+    .instructions {
+      font-style: italic;
+      opacity: 0.9;
+    }
+
+    .pulse {
+      /* Just a neat little highlight effect for the user to see when they press Enter */
+      animation: pulse 0.3s forwards;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>press Enter Key for sick stuff</h1>
+  <p>Press Enter key to launch confetti!</p>
+  <p class="instructions">(Try pressing holding it down it lags your shit!)</p>
+
+  <!-- canvas-confetti library from a CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+  <script>
+    // Grab a reference to the body for a quick "pulse" effect
+    const body = document.body;
+
+    // This function will generate a burst of confetti
+    function launchConfetti() {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+      });
+    }
+
+    // Listen for key presses
+    document.addEventListener("keydown", (event) => {
+      // Check if Enter was pressed
+      if (event.key === "Enter") {
+        // Visual feedback
+        body.classList.remove("pulse");
+        void body.offsetWidth; // Trick to reset the animation
+        body.classList.add("pulse");
+
+        // Launch confetti
+        launchConfetti();
+      }
+    });
+  </script>
+</body>
+</html>
